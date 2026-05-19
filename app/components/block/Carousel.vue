@@ -77,6 +77,7 @@ onUnmounted(() => {
         width="800"
         class="absolute inset-0 size-full object-contain"
       />
+
       <video
         v-else-if="storyblokAssetType(activeAsset.filename) === 'video'"
         :key="activeAsset.filename"
@@ -103,9 +104,7 @@ onUnmounted(() => {
               width="60"
               class="size-full object-cover"
             />
-<!-- 
-            :width="storyblokImageDimensions(media.image.filename).width"
-          :height="storyblokImageDimensions(media.image.filename).height" -->
+
             <video
               v-else-if="storyblokAssetType(asset.filename) === 'video'"
               :src="asset.filename"
