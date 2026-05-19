@@ -57,7 +57,7 @@ onMounted(async () => {
   embla = EmblaCarousel(
     emblaRef.value,
     { loop: true, dragFree: true },
-    [AutoScroll({ speed: 2, stopOnInteraction: false, playOnInit: true })],
+    // [AutoScroll({ speed: 2, stopOnInteraction: false, playOnInit: true })],
   )
 
   embla.on('scroll', updateActiveSlide)
@@ -74,6 +74,7 @@ onUnmounted(() => {
       <NuxtImg
         v-if="storyblokAssetType(activeAsset.filename) === 'image'"
         :src="activeAsset.filename"
+        width="800"
         class="absolute inset-0 size-full object-contain"
       />
       <video
@@ -99,8 +100,12 @@ onUnmounted(() => {
             <NuxtImg
               v-if="storyblokAssetType(asset.filename) === 'image'"
               :src="asset.filename"
+              width="60"
               class="size-full object-cover"
             />
+<!-- 
+            :width="storyblokImageDimensions(media.image.filename).width"
+          :height="storyblokImageDimensions(media.image.filename).height" -->
             <video
               v-else-if="storyblokAssetType(asset.filename) === 'video'"
               :src="asset.filename"
