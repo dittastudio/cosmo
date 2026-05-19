@@ -9,7 +9,7 @@
 
 COSMO
 https://cosmo-app.com
-#000000
+# 000000
 
 292521441604089
 tPhuLleI6CbeFKbE7a5uvAtt
