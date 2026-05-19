@@ -21,12 +21,13 @@ const slides = computed(() => {
   return Array.from({ length: repeats }, () => assets.value).flat()
 })
 
-const emblaRef = ref<HTMLElement | null>(null)
+const emblaRef = useTemplateRef('emblaRef')
 const activeAsset = ref<(typeof assets.value)[number] | null>(null)
 let embla: EmblaCarouselType | null = null
 
 const updateActiveSlide = () => {
   if (!embla || !emblaRef.value || !assets.value.length) return
+
   const containerRect = emblaRef.value.getBoundingClientRect()
   const centerX = containerRect.left + containerRect.width / 2
   const slideNodes = embla.slideNodes()
@@ -39,6 +40,7 @@ const updateActiveSlide = () => {
     const node = slideNodes[i]!
     const nodeCenterX = node.getBoundingClientRect().left + node.offsetWidth / 2
     const distance = Math.abs(nodeCenterX - centerX)
+
     if (distance < closestDistance) {
       closestDistance = distance
       closestIndex = i
