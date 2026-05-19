@@ -8,6 +8,7 @@
   --color-\*: initial;
   --color-white: hsla(0, 0%, 100%, 1);
   --color-black: hsla(0, 0%, 0%, 1);
+  --color-red: oklch(0.63 0.27 30.03);
 
   --bp-2xs: 375px;
   --bp-xs: 480px;

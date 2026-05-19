@@ -57,7 +57,7 @@ onMounted(async () => {
   embla = EmblaCarousel(
     emblaRef.value,
     { loop: true, dragFree: true },
-    // [AutoScroll({ speed: 2, stopOnInteraction: false, playOnInit: true })],
+    [AutoScroll({ speed: 2, stopOnInteraction: false, playOnInit: true })],
   )
 
   embla.on('scroll', updateActiveSlide)
@@ -114,5 +114,7 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
+
+    <div class="absolute left-1/2 bottom-0.5 w-1 h-11 bg-red pointer-events-none" />
   </div>
 </template>
