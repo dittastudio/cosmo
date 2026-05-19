@@ -1,4 +1,4 @@
-import type { Image, Page } from '#storyblok-components'
+import type { Page } from '#storyblok-components'
 import type { StoryblokRichtext } from '#storyblok-types'
 import type { ImageModifiers } from '@nuxt/image'
 import type { ISbStoryData } from '@storyblok/js'
@@ -43,8 +43,6 @@ const storyblokAssetType = (filename: string): 'image' | 'video' | 'other' => {
 const storyblokRichTextContent = (richtext: StoryblokRichtext | undefined): boolean => Boolean(richtext?.content?.[0]?.content?.length)
 
 const storyblokSlug = (path: string): string => ['', '/'].includes(path) ? '/home' : path.replace(/\/+$/, '')
-
-const isImageComponent = (media: Image): media is Image => media.component === 'image'
 
 type ContentTypes = Page
 
@@ -91,7 +89,6 @@ const storyblokImageDimensions = (filename: string | null | undefined): { width:
 }
 
 export {
-  isImageComponent,
   isPage,
   storyblokAssetType,
   isVisualEditor,
