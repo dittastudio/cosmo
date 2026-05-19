@@ -24,6 +24,6 @@ useSeoMeta({
   <div>
     <NuxtPage />
 
-    <pre>{{ story }}</pre>
+    <!-- <pre>{{ story }}</pre> -->
   </div>
 </template>
