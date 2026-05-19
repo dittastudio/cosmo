@@ -115,6 +115,6 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <div class="absolute left-1/2 bottom-0.5 w-1 h-11 bg-red pointer-events-none" />
+    <div class="absolute left-1/2 bottom-0.5 -translate-x-0.5 w-1 h-11 bg-red pointer-events-none" />
   </div>
 </template>
