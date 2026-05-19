@@ -18,7 +18,11 @@ const CustomLink = Mark.create({
     const isStory = HTMLAttributes.linktype === 'story'
 
     const attrs = {
-      to: isEmail ? `mailto:${HTMLAttributes.href}` : isStory ? storyblokSlug(HTMLAttributes.href) : HTMLAttributes.href,
+      to: isEmail
+        ? `mailto:${HTMLAttributes.href}`
+        : isStory
+          ? storyblokSlug(HTMLAttributes.href)
+          : HTMLAttributes.href,
       target: HTMLAttributes.target || undefined,
     }
 
@@ -27,13 +31,15 @@ const CustomLink = Mark.create({
 })
 
 type VNodeResult = VNode | VNode[]
+type RenderChildren = VNodeResult | (() => VNodeResult)
 
-const renderFn = (tag: string | Component, attrs: BlockAttributes, children?: VNodeResult): VNodeResult => {
+const renderFn = (tag: string | Component, attrs: BlockAttributes, children?: RenderChildren): VNodeResult => {
   if (typeof tag !== 'string' && children != null) {
-    return h(tag, attrs, { default: () => Array.isArray(children) ? children : [children] })
+    const resolved = typeof children === 'function' ? children() : children
+    return h(tag, attrs, { default: () => (Array.isArray(resolved) ? resolved : [resolved]) })
   }
 
-  return h(tag as string, attrs, children)
+  return h(tag as string, attrs, children as VNodeResult)
 }
 
 const { render } = useStoryblokRichText({
@@ -43,12 +49,12 @@ const { render } = useStoryblokRichText({
   },
 })
 
-const richText = computed(() => html ? render(html) : null)
+const richText = computed(() => (html ? () => render(html) : null))
 </script>
 
 <template>
   <component
-    :is="() => richText"
+    :is="richText"
     v-if="richText"
   />
 </template>

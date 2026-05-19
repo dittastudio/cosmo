@@ -33,7 +33,7 @@ const attributes = {
   title: item?.title,
   rel: item?.rel,
   to: determineHref(item),
-  target: item?.target ?? item?.linktype === 'asset' ? '_blank' : null,
+  target: (item?.target ?? item?.linktype === 'asset') ? '_blank' : null,
 }
 </script>
 
