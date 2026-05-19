@@ -71,7 +71,7 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/app.css'],
   site: {
-    url: 'https://cosmo-app.com',
+    url: 'https://cosmo-mvp.netlify.app',
     name: 'COSMO',
   },
   runtimeConfig: {
