@@ -58,10 +58,10 @@ export default defineNuxtConfig({
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
       meta: [
-        { name: 'author', content: '<APP_SITE_NAME>' },
-        { name: 'msapplication-TileColor', content: '<APP_ACCENT_COLOR>' },
-        { name: 'theme-color', content: '<APP_ACCENT_COLOR>' },
-        { name: 'apple-mobile-web-app-title', content: '<APP_SITE_NAME>' },
+        { name: 'author', content: 'COSMO' },
+        { name: 'msapplication-TileColor', content: '#000000' },
+        { name: 'theme-color', content: '#000000' },
+        { name: 'apple-mobile-web-app-title', content: 'COSMO' },
         { 'http-equiv': 'content-language', 'content': 'en-GB' },
       ],
       link: [
@@ -71,8 +71,8 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/app.css'],
   site: {
-    url: '<APP_SITE_URL>',
-    name: '<APP_SITE_NAME>',
+    url: 'https://cosmo-app.com',
+    name: 'COSMO',
   },
   runtimeConfig: {
     STORYBLOK_SPACE_ID: process.env.NUXT_STORYBLOK_SPACE_ID,
@@ -82,7 +82,7 @@ export default defineNuxtConfig({
     },
   },
   alias: {
-    '#storyblok-components': fileURLToPath(new URL('./.storyblok/types/<STORYBLOK_SPACE_ID>/storyblok-components', import.meta.url)),
+    '#storyblok-components': fileURLToPath(new URL('./.storyblok/types/292521441604089/storyblok-components', import.meta.url)),
     '#storyblok-types': fileURLToPath(new URL('./.storyblok/types/storyblok', import.meta.url)),
   },
   routeRules: {

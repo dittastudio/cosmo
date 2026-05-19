@@ -1,12 +1,17 @@
 {
-  "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "github"
-  ],
   "permissions": {
     "allow": [
       "Read(//Users/michaelpumo/Documents/**)",
-      "Bash(gh repo *)"
+      "Bash(gh repo *)",
+      "mcp__Storyblok__execute_readonly",
+      "mcp__Storyblok__execute_destructive",
+      "mcp__Storyblok__search",
+      "mcp__Storyblok__describe",
+      "mcp__Storyblok__execute_mutating"
     ]
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "github"
+  ]
 }

@@ -7,9 +7,9 @@
 // Storyblok MCP to set up "page" repeatable type.
 // Storyblok MCP to set up block_text and assign to "page" type in "blocks" field. Has one richtext field called "text"
 
-<APP_SITE_NAME>
-<APP_SITE_URL>
-<APP_ACCENT_COLOR>
+COSMO
+https://cosmo-app.com
+#000000
 
-<STORYBLOK_SPACE_ID>
-<STORYBLOK_TOKEN>
+292521441604089
+tPhuLleI6CbeFKbE7a5uvAtt

@@ -15,7 +15,7 @@ useHead({
 })
 
 useSeoMeta({
-  titleTemplate: title => (title ? `${title} - <APP_SITE_NAME>` : '<APP_SITE_NAME>'),
+  titleTemplate: title => (title ? `${title} - COSMO` : 'COSMO'),
   robots: 'index, follow',
 })
 </script>
