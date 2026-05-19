@@ -99,10 +99,10 @@ onUnmounted(() => {
         v-else-if="storyblokAssetType(activeAsset.filename) === 'video'"
         :key="activeAsset.filename"
         :src="activeAsset.filename"
+        playsinline
         autoplay
         muted
         loop
-        playsinline
         class="absolute inset-0 size-full object-contain"
       />
     </template>
