@@ -10,7 +10,7 @@ const { story } = defineProps<Props>()
 </script>
 
 <template>
-  <div v-if="story.content.text" class="absolute top-0 left-0 z-10 p-5">
+  <div v-if="story.content.text" class="absolute top-0 left-0 z-10 p-5 [&_p]:text-20 text-white mix-blend-difference">
     <StoryblokText :html="story.content.text" />
   </div>
 

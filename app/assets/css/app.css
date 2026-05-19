@@ -32,11 +32,12 @@
 
   --font-\*: initial;
   --font-sans: sans-serif, system-ui;
-  --font-serif: serif, ui-serif;
+  --font-serif: "PlayfairDisplay", serif, ui-serif;
   --font-mono: monospace, ui-monospace;
 
   --text-\*: initial;
-  --text-16: 1rem; /* 16px */
+  --text-16: 1rem;
+  --text-20: 1.25rem;
 
   --ease-inQuad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
   --ease-outQuad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
