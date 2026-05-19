@@ -39,9 +39,23 @@
     "display_name": null,
     "description": null,
     "created_at": "2026-05-15T10:10:53.565Z",
-    "updated_at": "2026-05-19T13:18:38.991Z",
+    "updated_at": "2026-05-19T21:29:29.887Z",
     "id": 176743438606804,
     "schema": {
+      "text": {
+        "type": "richtext",
+        "pos": 0,
+        "customize_toolbar": true,
+        "toolbar": [
+          "bold",
+          "unset",
+          "italic",
+          "link",
+          "paragraph"
+        ],
+        "id": "w2wQGSQQQXOE1VFol0cOGA",
+        "allow_target_blank": true
+      },
       "blocks": {
         "type": "bloks",
         "display_name": "Blocks",
@@ -50,7 +64,8 @@
           "block_carousel"
         ],
         "id": "rmfOkiXwQmeRo--wj5DGIA",
-        "component_denylist": []
+        "component_denylist": [],
+        "pos": 1
       },
       "tab_seo": {
         "type": "tab",
@@ -60,22 +75,26 @@
           "seo_description",
           "seo_image"
         ],
-        "id": "2r_OgA"
+        "id": "2r_OgA",
+        "pos": 2
       },
       "seo_title": {
         "type": "text",
         "display_name": "SEO Title",
-        "id": "5pyYlNaHRamMTd7ViAlh-w"
+        "id": "5pyYlNaHRamMTd7ViAlh-w",
+        "pos": 3
       },
       "seo_description": {
         "type": "text",
         "display_name": "SEO Description",
-        "id": "zPkaCTAZRSSm3UZy6G1ILw"
+        "id": "zPkaCTAZRSSm3UZy6G1ILw",
+        "pos": 4
       },
       "seo_image": {
         "type": "asset",
         "display_name": "SEO Image",
-        "id": "1UawSzXVTzSfDGQygM-IwQ"
+        "id": "1UawSzXVTzSfDGQygM-IwQ",
+        "pos": 5
       }
     },
     "image": null,
