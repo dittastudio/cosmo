@@ -10,11 +10,14 @@ const { block } = defineProps<Props>()
 
 const assets = computed(() => block.assets ?? [])
 
-// Repeat slides until we have at least 50 — ensures Embla's loop always has
-// enough content to fill the viewport at any slide size.
+// Updated in onMounted from actual viewport width — avoids SSR/hydration mismatch
+// while still generating enough slides for Embla's loop on any screen size.
+const slideWidthPx = 28 // matches w-7 in the template
+const minSlideCount = ref(200)
+
 const slides = computed(() => {
   if (!assets.value.length) return []
-  const repeats = Math.ceil(50 / assets.value.length)
+  const repeats = Math.ceil(minSlideCount.value / assets.value.length)
   return Array.from({ length: repeats }, () => assets.value).flat()
 })
 
@@ -24,22 +27,23 @@ let embla: EmblaCarouselType | null = null
 
 const updateActiveSlide = () => {
   if (!embla || !emblaRef.value || !assets.value.length) return
-  const rect = emblaRef.value.getBoundingClientRect()
-  const centerX = rect.left + rect.width / 2
+  const containerRect = emblaRef.value.getBoundingClientRect()
+  const centerX = containerRect.left + containerRect.width / 2
   const slideNodes = embla.slideNodes()
 
   let closestIndex = 0
   let closestDistance = Infinity
 
-  slideNodes.forEach((node, index) => {
-    const nodeRect = node.getBoundingClientRect()
-    const nodeCenterX = nodeRect.left + nodeRect.width / 2
+  // Only check slides currently in the viewport — avoids iterating all 150–400 nodes
+  for (const i of embla.slidesInView()) {
+    const node = slideNodes[i]!
+    const nodeCenterX = node.getBoundingClientRect().left + node.offsetWidth / 2
     const distance = Math.abs(nodeCenterX - centerX)
     if (distance < closestDistance) {
       closestDistance = distance
-      closestIndex = index
+      closestIndex = i
     }
-  })
+  }
 
   activeAsset.value = assets.value[closestIndex % assets.value.length] ?? null
 }
@@ -49,10 +53,21 @@ onMounted(async () => {
 
   activeAsset.value = assets.value[0] ?? null
 
+  // Ensure 3× the viewport width in slides so Embla's loop always has a valid
+  // scroll range on any display size (1440p → ~155 slides, 4K → ~412 slides).
+  minSlideCount.value = Math.ceil((window.innerWidth * 3) / slideWidthPx)
+
   const [{ default: EmblaCarousel }, { default: AutoScroll }] = await Promise.all([
     import('embla-carousel'),
     import('embla-carousel-auto-scroll'),
   ])
+
+  if (!emblaRef.value) return
+
+  // nextTick lets Vue commit the updated slide count to the DOM before Embla measures
+  await nextTick()
+
+  if (!emblaRef.value) return
 
   embla = EmblaCarousel(
     emblaRef.value,
