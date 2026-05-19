@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { StoryblokRichtext } from '#storyblok-types'
 import type { BlockAttributes } from '@storyblok/richtext'
 import type { Component, VNode } from 'vue'
-import { NuxtLink } from '#components'
+import type { StoryblokRichtext } from '#storyblok-types'
 import { Mark } from '@tiptap/core'
+import { NuxtLink } from '#components'
 
 interface Props {
   html?: StoryblokRichtext

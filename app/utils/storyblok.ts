@@ -1,8 +1,8 @@
-import type { Page } from '#storyblok-components'
-import type { StoryblokRichtext } from '#storyblok-types'
 import type { ImageModifiers } from '@nuxt/image'
 import type { ISbStoryData } from '@storyblok/js'
 import type { LocationQuery } from 'vue-router'
+import type { Page } from '#storyblok-components'
+import type { StoryblokRichtext } from '#storyblok-types'
 
 const isVisualEditor = (search: LocationQuery) => '_storyblok' in search
 
@@ -20,7 +20,7 @@ const imageExtensions = [
 const videoExtensions = [
   'mp4',
   'webm',
-  'ogg'
+  'ogg',
 ]
 
 const storyblokAssetType = (filename: string): 'image' | 'video' | 'other' => {
@@ -90,8 +90,8 @@ const storyblokImageDimensions = (filename: string | null | undefined): { width:
 
 export {
   isPage,
-  storyblokAssetType,
   isVisualEditor,
+  storyblokAssetType,
   storyblokImage,
   storyblokImageDimensions,
   storyblokRichTextContent,

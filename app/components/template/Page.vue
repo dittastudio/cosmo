@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { Page } from '#storyblok-components'
 import type { ISbStoryData } from '@storyblok/js'
+import type { Page } from '#storyblok-components'
 
 interface Props {
   story: ISbStoryData<Page>

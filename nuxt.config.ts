@@ -11,7 +11,7 @@ export default defineNuxtConfig({
         sources: [
           '/api/sitemap',
         ],
-      }
+      },
     }],
     ['@nuxt/eslint', {
       config: {
@@ -39,10 +39,10 @@ export default defineNuxtConfig({
         'lg': 1200,
         'xl': 1440,
         '2xl': 1800,
-      }
+      },
     }],
     ['@storyblok/nuxt', {
-      accessToken: process.env.NUXT_STORYBLOK_TOKEN
+      accessToken: process.env.NUXT_STORYBLOK_TOKEN,
     }],
     'nuxt-ai-ready',
   ],
@@ -95,6 +95,8 @@ export default defineNuxtConfig({
         '@storyblok/vue',
         '@tiptap/core',
         'tailwind-merge',
+        'embla-carousel',
+        'embla-carousel-auto-scroll',
       ],
     },
     plugins: [
