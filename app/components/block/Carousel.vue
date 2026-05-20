@@ -23,6 +23,8 @@ const slides = computed(() => {
   return Array.from({ length: repeats }).fill(assets.value).flat()
 })
 
+const autoScrollSpeed = computed(() => slideWidthPx / ((block.speed ?? 2) * 60))
+
 const emblaRef = useTemplateRef('emblaRef')
 const activeAsset = ref<(typeof assets.value)[number] | null>(null)
 let embla: EmblaCarouselType | null = null
@@ -54,10 +56,28 @@ const updateActiveSlide = () => {
   activeAsset.value = assets.value[closestIndex % assets.value.length] ?? null
 }
 
+async function initEmbla() {
+  embla?.destroy()
+  embla = null
+
+  const [{ default: EmblaCarousel }, { default: AutoScroll }] = await Promise.all([
+    import('embla-carousel'),
+    import('embla-carousel-auto-scroll'),
+  ])
+
+  if (!emblaRef.value) { return }
+
+  embla = EmblaCarousel(
+    emblaRef.value,
+    { loop: true, dragFree: true },
+    [AutoScroll({ speed: autoScrollSpeed.value, stopOnInteraction: false, playOnInit: true })],
+  )
+
+  embla.on('scroll', updateActiveSlide)
+}
+
 onMounted(async () => {
-  if (!emblaRef.value || !assets.value.length) {
-    return
-  }
+  if (!emblaRef.value || !assets.value.length) { return }
 
   activeAsset.value = assets.value[0] ?? null
 
@@ -65,30 +85,13 @@ onMounted(async () => {
   // scroll range on any display size (1440p → ~155 slides, 4K → ~412 slides).
   minSlideCount.value = Math.ceil((window.innerWidth * 3) / slideWidthPx)
 
-  const [{ default: EmblaCarousel }, { default: AutoScroll }] = await Promise.all([
-    import('embla-carousel'),
-    import('embla-carousel-auto-scroll'),
-  ])
-
-  if (!emblaRef.value) {
-    return
-  }
-
   // nextTick lets Vue commit the updated slide count to the DOM before Embla measures
   await nextTick()
 
-  if (!emblaRef.value) {
-    return
-  }
-
-  embla = EmblaCarousel(
-    emblaRef.value,
-    { loop: true, dragFree: true },
-    [AutoScroll({ speed: slideWidthPx / ((block.speed ?? 2) * 60), stopOnInteraction: false, playOnInit: true })],
-  )
-
-  embla.on('scroll', updateActiveSlide)
+  await initEmbla()
 })
+
+watch(autoScrollSpeed, initEmbla)
 
 onUnmounted(() => {
   embla?.destroy()
