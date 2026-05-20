@@ -16,9 +16,11 @@ const slideWidthPx = 28 // matches w-7 in the template
 const minSlideCount = ref(200)
 
 const slides = computed(() => {
-  if (!assets.value.length) return []
+  if (!assets.value.length) {
+    return []
+  }
   const repeats = Math.ceil(minSlideCount.value / assets.value.length)
-  return Array.from({ length: repeats }, () => assets.value).flat()
+  return Array.from({ length: repeats }).fill(assets.value).flat()
 })
 
 const emblaRef = useTemplateRef('emblaRef')
@@ -26,7 +28,9 @@ const activeAsset = ref<(typeof assets.value)[number] | null>(null)
 let embla: EmblaCarouselType | null = null
 
 const updateActiveSlide = () => {
-  if (!embla || !emblaRef.value || !assets.value.length) return
+  if (!embla || !emblaRef.value || !assets.value.length) {
+    return
+  }
 
   const containerRect = emblaRef.value.getBoundingClientRect()
   const centerX = containerRect.left + containerRect.width / 2
@@ -51,7 +55,9 @@ const updateActiveSlide = () => {
 }
 
 onMounted(async () => {
-  if (!emblaRef.value || !assets.value.length) return
+  if (!emblaRef.value || !assets.value.length) {
+    return
+  }
 
   activeAsset.value = assets.value[0] ?? null
 
@@ -64,17 +70,21 @@ onMounted(async () => {
     import('embla-carousel-auto-scroll'),
   ])
 
-  if (!emblaRef.value) return
+  if (!emblaRef.value) {
+    return
+  }
 
   // nextTick lets Vue commit the updated slide count to the DOM before Embla measures
   await nextTick()
 
-  if (!emblaRef.value) return
+  if (!emblaRef.value) {
+    return
+  }
 
   embla = EmblaCarousel(
     emblaRef.value,
     { loop: true, dragFree: true },
-    [AutoScroll({ speed: 2, stopOnInteraction: false, playOnInit: true })],
+    [AutoScroll({ speed: slideWidthPx / ((block.speed ?? 2) * 60), stopOnInteraction: false, playOnInit: true })],
   )
 
   embla.on('scroll', updateActiveSlide)
@@ -86,7 +96,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div v-editable="block" class="relative w-full h-screen select-none">
+  <div
+    v-editable="block"
+    class="relative w-full h-screen select-none"
+  >
     <template v-if="activeAsset?.filename">
       <NuxtImg
         v-if="storyblokAssetType(activeAsset.filename) === 'image'"
@@ -107,14 +120,20 @@ onUnmounted(() => {
       />
     </template>
 
-    <div ref="emblaRef" class="absolute inset-0 overflow-hidden">
+    <div
+      ref="emblaRef"
+      class="absolute inset-0 overflow-hidden"
+    >
       <div class="flex h-full">
         <div
           v-for="(asset, index) in slides"
           :key="`${asset.id}-${index}`"
           class="w-7 h-full flex flex-col items-center justify-end"
         >
-          <div v-if="asset?.filename" class="shrink-0 w-7 h-12 border border-white bg-white py-px">
+          <div
+            v-if="asset?.filename"
+            class="shrink-0 w-7 h-12 border border-white bg-white py-px"
+          >
             <NuxtImg
               v-if="storyblokAssetType(asset.filename) === 'image'"
               :src="asset.filename"

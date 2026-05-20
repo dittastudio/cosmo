@@ -3,6 +3,7 @@
 import type { StoryblokMultiasset, StoryblokRichtext, StoryblokAsset } from '../storyblok.d.ts';
 export interface BlockCarousel {
   assets: StoryblokMultiasset;
+  speed?: number;
   component: "block_carousel";
   _uid: string;
 }
