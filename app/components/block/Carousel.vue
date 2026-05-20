@@ -93,8 +93,20 @@ onMounted(async () => {
 
 watch(autoScrollSpeed, initEmbla)
 
+const carouselVisible = ref(true)
+let mouseIdleTimer: ReturnType<typeof setTimeout> | null = null
+
+const onMouseMove = () => {
+  carouselVisible.value = true
+  if (mouseIdleTimer) { clearTimeout(mouseIdleTimer) }
+  mouseIdleTimer = setTimeout(() => {
+    carouselVisible.value = false
+  }, 2000)
+}
+
 onUnmounted(() => {
   embla?.destroy()
+  if (mouseIdleTimer) { clearTimeout(mouseIdleTimer) }
 })
 </script>
 
@@ -102,6 +114,7 @@ onUnmounted(() => {
   <div
     v-editable="block"
     class="relative w-full h-screen select-none"
+    @mousemove="onMouseMove"
   >
     <template v-if="activeAsset?.filename">
       <NuxtImg
@@ -125,7 +138,8 @@ onUnmounted(() => {
 
     <div
       ref="emblaRef"
-      class="absolute inset-0 overflow-hidden"
+      class="absolute inset-0 overflow-hidden transition-opacity duration-300 ease-out"
+      :class="carouselVisible ? 'opacity-100' : 'opacity-0'"
     >
       <div class="flex h-full">
         <div
@@ -152,8 +166,8 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="absolute left-1/2 bottom-0.5 -translate-x-0.5 w-1 h-11 bg-red pointer-events-none" />
+      <div class="absolute left-1/2 bottom-0.5 -translate-x-0.5 w-1 h-11 bg-red pointer-events-none" />
+    </div>
   </div>
 </template>
