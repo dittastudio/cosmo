@@ -113,7 +113,7 @@ onUnmounted(() => {
 <template>
   <div
     v-editable="block"
-    class="relative w-full h-screen select-none"
+    class="relative w-full h-svh select-none"
     @mousemove="onMouseMove"
   >
     <template v-if="activeAsset?.filename">
