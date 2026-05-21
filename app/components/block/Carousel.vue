@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { EmblaCarouselType } from 'embla-carousel'
 import type { BlockCarousel } from '#storyblok-components'
+import type { StoryblokMultiasset } from '#storyblok-types'
 
 interface Props {
   block: BlockCarousel
@@ -19,8 +20,10 @@ const slides = computed(() => {
   if (!assets.value.length) {
     return []
   }
+
   const repeats = Math.ceil(minSlideCount.value / assets.value.length)
-  return Array.from({ length: repeats }).fill(assets.value).flat()
+
+  return Array.from({ length: repeats }).fill(assets.value).flat() as StoryblokMultiasset
 })
 
 const autoScrollSpeed = computed(() => slideWidthPx / ((block.speed ?? 2) * 60))
